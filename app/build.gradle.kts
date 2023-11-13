@@ -1,16 +1,19 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
     namespace = "com.novack.tomorrowcodingchallenge"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.novack.tomorrowcodingchallenge"
         minSdk = 28
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -30,11 +33,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
     buildFeatures {
         compose = true
@@ -51,19 +54,35 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("androidx.activity:activity-compose:1.8.0")
-    implementation(platform("androidx.compose:compose-bom:2023.03.00"))
+    val androidxCoreVersion = "1.9.0"
+    val androidxLifecycleVersion = "2.6.2"
+    val androidxActivityVersion = "1.8.0"
+    val androidxComposeBomVersion = "2023.03.00"
+    val junitVersion = "4.13.2"
+    val androidxJunitVersion = "1.1.5"
+    val androidxEspressoVersion = "3.5.1"
+    val hiltVersion = "2.47"
+
+    implementation("androidx.core:core-ktx:$androidxCoreVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$androidxLifecycleVersion")
+    implementation("androidx.activity:activity-compose:$androidxActivityVersion")
+    implementation(platform("androidx.compose:compose-bom:$androidxComposeBomVersion"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
+    testImplementation("junit:junit:$junitVersion")
+    androidTestImplementation("androidx.test.ext:junit:$androidxJunitVersion")
+    androidTestImplementation("androidx.test.espresso:espresso-core:$androidxEspressoVersion")
+    androidTestImplementation(platform("androidx.compose:compose-bom:$androidxComposeBomVersion"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
+    kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
+}
+
+kapt {
+    correctErrorTypes = true
 }

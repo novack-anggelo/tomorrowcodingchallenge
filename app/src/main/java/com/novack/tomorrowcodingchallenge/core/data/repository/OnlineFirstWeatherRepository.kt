@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class OfflineFirstWeatherRepository @Inject constructor(
+class OnlineFirstWeatherRepository @Inject constructor(
     private val api: RetrofitNetwork
 ) : WeatherRepository {
 

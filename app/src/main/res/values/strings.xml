@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">tomorrowcodingchallenge</string>
+    <string name="COORDINATES">Lat: %s Long: %s</string>
 </resources>

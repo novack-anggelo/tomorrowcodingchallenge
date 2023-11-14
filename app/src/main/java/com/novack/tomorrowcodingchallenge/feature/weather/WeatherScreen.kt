@@ -47,7 +47,7 @@ private fun SuccessContent(
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         WeatherHeader(
-            weatherIconResource = getWeatherIcon(uiState.weatherInfo.current.weather),
+            weatherIconResource = getWeatherIcon(uiState.weatherInfo.current.weather, uiState.weatherInfo.current.isDay),
             coordinates = Coordinates("12.56", "34.65"),
             temperature = uiState.weatherInfo.current.temperature,
             temperatureUnit = uiState.weatherInfo.units.temperature,
@@ -85,10 +85,10 @@ private fun WeatherHeader(
     }
 }
 
-private fun getWeatherIcon(weatherStatus: WeatherStatus) =
+private fun getWeatherIcon(weatherStatus: WeatherStatus, isDay: Boolean) =
     when (weatherStatus) {
-        WeatherStatus.CLEAR_SKY -> R.drawable.sun
-        WeatherStatus.PARTIALLY_CLOUDY -> R.drawable.partially_sunny
+        WeatherStatus.CLEAR_SKY -> if(isDay) R.drawable.sun else R.drawable.moon
+        WeatherStatus.PARTIALLY_CLOUDY -> if(isDay) R.drawable.partially_sunny else R.drawable.moon_cloudy
         WeatherStatus.RAIN -> R.drawable.rain
         WeatherStatus.SNOW -> R.drawable.snow
         WeatherStatus.THUNDER_STORM -> R.drawable.heavy_storm
@@ -96,7 +96,7 @@ private fun getWeatherIcon(weatherStatus: WeatherStatus) =
 
 private fun getWeatherDescription(weatherStatus: WeatherStatus) =
     when (weatherStatus) {
-        WeatherStatus.CLEAR_SKY -> R.string.WEATHER_STATUS_SUNNY
+        WeatherStatus.CLEAR_SKY -> R.string.WEATHER_STATUS_CLEAR
         WeatherStatus.PARTIALLY_CLOUDY -> R.string.WEATHER_STATUS_PARTIALLY_CLOUDY
         WeatherStatus.RAIN -> R.string.WEATHER_STATUS_RAIN
         WeatherStatus.SNOW -> R.string.WEATHER_STATUS_SNOW

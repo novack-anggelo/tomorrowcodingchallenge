@@ -25,6 +25,7 @@ fun WeatherResponseDTO.toModel() =
     WeatherInfo(
         current = Current(
             temperature = currentDTO.temperature_2m.toString(),
+            isDay = currentDTO.is_day == 1,
             weather = weatherCodeToWeatherStatus(currentDTO.weather_code)
         ),
         units = Units(temperature = current_units.temperature_2m)

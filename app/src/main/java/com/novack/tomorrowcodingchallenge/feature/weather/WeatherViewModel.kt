@@ -15,13 +15,5 @@ class WeatherViewModel @Inject constructor(
     repository: WeatherRepository
 ) : ViewModel() {
 
-    init {
-        viewModelScope.launch {
-            val test = repository.getWeatherData(Coordinates("52.52","13.41999")).flowOn(Dispatchers.IO)
-                .collect {
-                    val asd = it
-                }
-        }
 
-    }
 }

@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">tomorrowcodingchallenge</string>
     <string name="COORDINATES">Lat: %s Long: %s</string>
+    <string name="WEATHER_STATUS_SUNNY">sunny</string>
+    <string name="WEATHER_STATUS_PARTIALLY_CLOUDY">partially cloudy</string>
+    <string name="WEATHER_STATUS_RAIN">rain</string>
+    <string name="WEATHER_STATUS_SNOW">snow</string>
+    <string name="WEATHER_STATUS_THUNDERSTORM">thunderstorm</string>
 </resources>

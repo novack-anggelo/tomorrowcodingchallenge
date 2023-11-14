@@ -1,7 +1,7 @@
 package com.novack.tomorrowcodingchallenge.core.network.retrofit
 
 import com.novack.tomorrowcodingchallenge.core.network.NetworkDataSource
-import com.novack.tomorrowcodingchallenge.core.network.model.WeatherResponse
+import com.novack.tomorrowcodingchallenge.core.network.model.WeatherResponseDTO
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -20,7 +20,7 @@ private interface RetrofitNetworkApi {
         @Query("current") current: String = "temperature_2m,wind_speed_10m",
         @Query("hourly") hourly: String = "temperature_2m,weather_code",
         @Query("forecast_days") forecastDays: String = "1"
-    ): WeatherResponse
+    ): WeatherResponseDTO
 
 }
 
@@ -33,7 +33,7 @@ class RetrofitNetwork @Inject constructor() : NetworkDataSource {
         .build()
         .create(RetrofitNetworkApi::class.java)
 
-    override suspend fun getWeatherData(lat: String, long: String): WeatherResponse =
+    override suspend fun getWeatherData(lat: String, long: String): WeatherResponseDTO =
         networkApi.getWeatherData(lat, long)
 
 }

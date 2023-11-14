@@ -62,6 +62,8 @@ dependencies {
     val androidxJunitVersion = "1.1.5"
     val androidxEspressoVersion = "3.5.1"
     val hiltVersion = "2.47"
+    val retrofitVersion = "2.9.0"
+    val gsonVersion = "2.1.0"
 
     implementation("androidx.core:core-ktx:$androidxCoreVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$androidxLifecycleVersion")
@@ -81,6 +83,10 @@ dependencies {
 
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
+    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
+
+    implementation ("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation ("com.squareup.retrofit2:converter-gson:$gsonVersion")
 }
 
 kapt {

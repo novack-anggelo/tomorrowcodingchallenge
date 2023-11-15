@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface WeatherRepository {
 
-    fun getWeatherData(coordinates: Coordinates): Flow<WeatherInfo> // TODO change return data
+    fun getWeatherData(coordinates: Coordinates): Flow<WeatherInfo>
 }

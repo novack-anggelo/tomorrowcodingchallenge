@@ -3,14 +3,18 @@ Implementation of a simple weather app based on the challenge's design concept, 
 
 ### Screenshots
 
-TODO
+<img src="tcd_5.gif"/>
 
 ### Architecture
-The app has a simple Clean architecture implementation with MVVM architecture
-TODO
+The app has a simple Clean architecture implementation with MVVM architecture.
+core: package containing the core functionalities, like data layer, domain models and network implementation
+feature: single presentation layer
 
 ## Solution
-TODO
+The solution uses a single screen [WeatherScreen](app/src/main/java/com/novack/tomorrowcodingchallenge/feature/weather/WeatherScreen.kt) this screen is a composable that
+uses other reusable composables.
+Just for demonstration, with [LocationSampleData](app/src/main/java/com/novack/tomorrowcodingchallenge/core/data/util/LocationSampleData.kt) I'm fetching the locations each 10 seconds.
+For networking the app uses Retrofit with Gson.
 
 ## Credits
 

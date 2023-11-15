@@ -3,6 +3,8 @@ package com.novack.tomorrowcodingchallenge.feature.weather
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -48,11 +50,11 @@ private fun SuccessContent(
     Column(modifier = Modifier.fillMaxSize()) {
         WeatherHeader(
             weatherIconResource = getWeatherIcon(uiState.weatherInfo.current.weather, uiState.weatherInfo.current.isDay),
-            coordinates = Coordinates("12.56", "34.65"),
+            coordinates = uiState.weatherInfo.coordinates,
             temperature = uiState.weatherInfo.current.temperature,
             temperatureUnit = uiState.weatherInfo.units.temperature,
-            timeZone = "Berlin" ,
-            weather = stringResource(id = getWeatherDescription(uiState.weatherInfo.current.weather))
+            weather = stringResource(id = getWeatherDescription(uiState.weatherInfo.current.weather)),
+            modifier = Modifier.fillMaxWidth().padding(12.dp)
         )
     }
 }
@@ -64,7 +66,6 @@ private fun WeatherHeader(
     coordinates: Coordinates,
     temperature: String,
     temperatureUnit: String,
-    timeZone: String,
     weather: String,
     modifier: Modifier = Modifier
 ) {
@@ -80,7 +81,6 @@ private fun WeatherHeader(
         )
         Text(text = "$temperature $temperatureUnit")
         Text(text = weather)
-        Text(text = timeZone)
         Text(text = stringResource(id = R.string.COORDINATES, coordinates.lat, coordinates.long))
     }
 }
@@ -116,7 +116,6 @@ private fun WeatherHeaderPreview() {
         coordinates = Coordinates("12.56", "34.65"),
         temperature = "20",
         temperatureUnit = "°C",
-        timeZone = "Berlin",
         weather = "Sunny"
     )
 }

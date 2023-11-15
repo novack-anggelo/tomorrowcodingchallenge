@@ -1,6 +1,7 @@
 package com.novack.tomorrowcodingchallenge.core.network.model
 
 import com.google.gson.annotations.SerializedName
+import com.novack.tomorrowcodingchallenge.core.model.Coordinates
 import com.novack.tomorrowcodingchallenge.core.model.Current
 import com.novack.tomorrowcodingchallenge.core.model.Units
 import com.novack.tomorrowcodingchallenge.core.model.WeatherInfo
@@ -23,6 +24,7 @@ data class WeatherResponseDTO(
 
 fun WeatherResponseDTO.toModel() =
     WeatherInfo(
+        coordinates = Coordinates(latitude.toString(), longitude.toString()),
         current = Current(
             temperature = currentDTO.temperature_2m.toString(),
             isDay = currentDTO.is_day == 1,

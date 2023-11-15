@@ -1,10 +1,10 @@
 package com.novack.tomorrowcodingchallenge.core.data.repository
 
 import com.novack.tomorrowcodingchallenge.core.model.Coordinates
-import com.novack.tomorrowcodingchallenge.core.network.model.WeatherResponse
+import com.novack.tomorrowcodingchallenge.core.model.WeatherInfo
 import kotlinx.coroutines.flow.Flow
 
 interface WeatherRepository {
 
-    fun getWeatherData(coordinates: Coordinates): Flow<WeatherResponse> // TODO change return data
+    fun getWeatherData(coordinates: Coordinates): Flow<WeatherInfo>
 }

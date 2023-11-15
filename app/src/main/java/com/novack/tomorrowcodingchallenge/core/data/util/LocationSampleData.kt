@@ -1,9 +1,11 @@
 package com.novack.tomorrowcodingchallenge.core.data.util
 
 import com.novack.tomorrowcodingchallenge.core.model.Coordinates
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
 
 object LocationSampleData {
-    val data = listOf(
+    private val data = listOf(
         Coordinates(lat = "53.619653", long = "10.079969"),
         Coordinates(lat = "53.080917", long = "8.847533"),
         Coordinates(lat = "52.378385", long = "9.794862"),
@@ -15,4 +17,15 @@ object LocationSampleData {
         Coordinates(lat = "53.542788", long = "8.613462"),
         Coordinates(lat = "53.141598", long = "8.242565"),
     )
+
+    fun dataStream() = flow {
+        var currentIndex = 0
+
+        while (true) {
+            if(currentIndex == data.size) currentIndex = 0
+            emit(data[currentIndex])
+            currentIndex++
+            delay(10000)
+        }
+    }
 }

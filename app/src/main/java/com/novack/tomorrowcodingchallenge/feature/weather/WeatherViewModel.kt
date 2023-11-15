@@ -18,22 +18,23 @@ class WeatherViewModel @Inject constructor(
     repository: WeatherRepository
 ) : ViewModel() {
 
-    val uiState: StateFlow<WeatherUiState> = repository.getWeatherData(LocationSampleData.data[0]).map {
-        WeatherUiState.Success(
-            it
-        )
+    val uiState: StateFlow<WeatherUiState> = LocationSampleData.dataStream().map {
+        val response = repository.getWeatherData(it)
+        WeatherUiState.Success(response)
     }
-        .catch<WeatherUiState> { emit(WeatherUiState.Error) }
+        .catch<WeatherUiState> {
+            emit(WeatherUiState.Error)
+        }
         .stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(),
-        initialValue = WeatherUiState.Loading
-    )
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(),
+            initialValue = WeatherUiState.Loading
+        )
 }
 
 sealed interface WeatherUiState {
     object Loading : WeatherUiState
-    object Error: WeatherUiState
+    object Error : WeatherUiState
     data class Success(
         val weatherInfo: WeatherInfo
     ) : WeatherUiState

@@ -50,9 +50,6 @@ class WeatherViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(),
             initialValue = WeatherUiState()
         )
-
-    // onError isError = false
-
 }
 
 data class WeatherUiState(

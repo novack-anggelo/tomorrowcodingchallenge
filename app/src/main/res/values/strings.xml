@@ -7,4 +7,7 @@
     <string name="WEATHER_STATUS_SNOW">snow</string>
     <string name="WEATHER_STATUS_THUNDERSTORM">thunderstorm</string>
     <string name="WEATHER_FETCH_ERROR">There was an error fetching the data, please try later</string>
+    <string name="FORECAST_HEADER">7 day forecast:</string>
+    <string name="FORECAST_ITEM_TEMP_MIN">Min: %s %s</string>
+    <string name="FORECAST_ITEM_TEMP_MAX">Max: %s %s</string>
 </resources>

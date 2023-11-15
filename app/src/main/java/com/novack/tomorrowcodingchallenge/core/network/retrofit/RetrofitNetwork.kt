@@ -18,8 +18,8 @@ private interface RetrofitNetworkApi {
         @Query("latitude") latitude: String,
         @Query("longitude") longitude: String,
         @Query("current") current: String = "temperature_2m,is_day,weather_code",
-        @Query("hourly") hourly: String = "temperature_2m,weather_code",
-        @Query("forecast_days") forecastDays: String = "1"
+        @Query("daily") daily: String = "weather_code,temperature_2m_max,temperature_2m_min",
+        @Query("forecast_days") forecastDays: String = "7"
     ): WeatherResponseDTO
 
 }

@@ -17,7 +17,7 @@ private interface RetrofitNetworkApi {
     suspend fun getWeatherData(
         @Query("latitude") latitude: String,
         @Query("longitude") longitude: String,
-        @Query("current") current: String = "temperature_2m,wind_speed_10m",
+        @Query("current") current: String = "temperature_2m,is_day,weather_code",
         @Query("hourly") hourly: String = "temperature_2m,weather_code",
         @Query("forecast_days") forecastDays: String = "1"
     ): WeatherResponseDTO

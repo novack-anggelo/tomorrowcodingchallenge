@@ -5,12 +5,16 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,6 +31,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.novack.tomorrowcodingchallenge.R
 import com.novack.tomorrowcodingchallenge.core.model.Coordinates
+import com.novack.tomorrowcodingchallenge.core.model.Daily
 import com.novack.tomorrowcodingchallenge.core.model.WeatherStatus
 
 @Composable
@@ -43,6 +48,7 @@ fun WeatherScreen(
     fetchUiState: FetchUiState
 ) {
     val context = LocalContext.current
+
     LaunchedEffect(key1 = fetchUiState.isError) {
         if (fetchUiState.isError) {
             Toast.makeText(context, R.string.WEATHER_FETCH_ERROR, Toast.LENGTH_LONG).show()
@@ -60,7 +66,11 @@ fun WeatherScreen(
 private fun WeatherDataContent(
     uiState: WeatherUiState
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(12.dp)
+    ) {
         WeatherHeader(
             weatherIconResource = getWeatherIcon(
                 uiState.weatherInfo?.current?.weather,
@@ -76,8 +86,14 @@ private fun WeatherDataContent(
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp)
+                .padding(vertical = 24.dp)
         )
+        uiState.weatherInfo?.daily?.let {
+            WeatherForecast(
+                dailyData = it,
+                tempUnit = uiState.weatherInfo.units.temperature
+            )
+        }
     }
 }
 
@@ -113,12 +129,89 @@ private fun WeatherHeader(
             painter = painterResource(id = weatherIconResource ?: R.drawable.no_data_icon),
             contentDescription = null,
             tint = Color.Unspecified,
-            modifier = Modifier.size(45.dp)
+            modifier = Modifier.size(86.dp)
         )
-        Text(text = temperature?.let { "$it $temperatureUnit" } ?: "")
-        Text(text = weather.orEmpty())
-        Text(text = coordinates?.let { stringResource(id = R.string.COORDINATES, it.lat, it.long) }
-            ?: "")
+        Text(
+            text = temperature?.let { "$it $temperatureUnit" } ?: "",
+            style = MaterialTheme.typography.headlineLarge
+        )
+        Text(
+            text = weather.orEmpty(),
+            style = MaterialTheme.typography.headlineMedium
+        )
+        Text(
+            text = coordinates?.let { stringResource(id = R.string.COORDINATES, it.lat, it.long) }
+                ?: "",
+            style = MaterialTheme.typography.bodyMedium
+        )
+    }
+}
+
+@Composable
+private fun WeatherForecast(dailyData: List<Daily>, tempUnit: String) {
+    ElevatedCard(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp, vertical = 12.dp)
+    ) {
+        Column {
+            Text(
+                text = stringResource(id = R.string.FORECAST_HEADER),
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+            )
+            dailyData.forEach {
+                Divider()
+                WeatherForecastItem(dayInfo = it, tempUnit = tempUnit)
+            }
+        }
+    }
+}
+
+@Composable
+private fun WeatherForecastItem(dayInfo: Daily, tempUnit: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                vertical = 8.dp,
+                horizontal = 16.dp
+            ),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(text = dayInfo.date, style = MaterialTheme.typography.bodyMedium)
+        Icon(
+            painter = painterResource(
+                id = getWeatherIcon(
+                    weatherStatus = dayInfo.weather,
+                    isDay = true
+                ) ?: R.drawable.no_data_icon
+            ),
+            contentDescription = null,
+            modifier = Modifier.size(16.dp),
+            tint = Color.Unspecified
+        )
+        Row {
+            Text(
+                text = stringResource(
+                    id = R.string.FORECAST_ITEM_TEMP_MIN,
+                    dayInfo.minTemperature,
+                    tempUnit
+                ),
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(end = 8.dp)
+            )
+            Text(
+                text = stringResource(
+                    id = R.string.FORECAST_ITEM_TEMP_MAX,
+                    dayInfo.maxTemperature,
+                    tempUnit
+                ),
+                style = MaterialTheme.typography.bodyMedium
+            )
+        }
+
     }
 }
 

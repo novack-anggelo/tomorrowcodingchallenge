@@ -20,3 +20,4 @@ TODO
 [rain_icon](app/src/main/res/drawable/rain.png) by https://www.freepik.com/
 [snow_icon](app/src/main/res/drawable/snow.png) by https://www.freepik.com/
 [heavy_rain_icon](app/src/main/res/drawable/heavy_storm.png) by https://www.flaticon.com/authors/justicon
+[no_data_icon](app/src/main/res/drawable/no_data_icon.png) by https://www.flaticon.com/authors/ghozi-muhtarom

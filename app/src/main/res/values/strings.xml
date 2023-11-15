@@ -6,4 +6,5 @@
     <string name="WEATHER_STATUS_RAIN">rain</string>
     <string name="WEATHER_STATUS_SNOW">snow</string>
     <string name="WEATHER_STATUS_THUNDERSTORM">thunderstorm</string>
+    <string name="WEATHER_FETCH_ERROR">There was an error fetching the data, please try later</string>
 </resources>
